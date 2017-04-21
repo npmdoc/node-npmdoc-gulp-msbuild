@@ -1,0 +1,498 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/hoffi/gulp-msbuild#readme">gulp-msbuild (v0.4.7)</a>
+</h1>
+<h4>msbuild plugin for gulp. Inspired by grunt-msbuild.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-msbuild">module gulp-msbuild</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-msbuild.gulp-msbuild">
+            function <span class="apidocSignatureSpan"></span>gulp-msbuild
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-msbuild.</span>msbuild_command_builder</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-msbuild.</span>msbuild_finder</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-msbuild.</span>msbuild_runner</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-msbuild.msbuild_command_builder">module gulp-msbuild.msbuild_command_builder</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-msbuild.msbuild_command_builder.buildArguments">
+            function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_command_builder.</span>buildArguments
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-msbuild.msbuild_command_builder.construct">
+            function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_command_builder.</span>construct
+            <span class="apidocSignatureSpan">(file, options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-msbuild.msbuild_finder">module gulp-msbuild.msbuild_finder</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-msbuild.msbuild_finder.find">
+            function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_finder.</span>find
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-msbuild.msbuild_runner">module gulp-msbuild.msbuild_runner</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-msbuild.msbuild_runner.startMsBuildTask">
+            function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_runner.</span>startMsBuildTask
+            <span class="apidocSignatureSpan">(options, file, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-msbuild" id="apidoc.module.gulp-msbuild">module gulp-msbuild</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-msbuild.gulp-msbuild" id="apidoc.element.gulp-msbuild.gulp-msbuild">
+        function <span class="apidocSignatureSpan"></span>gulp-msbuild
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-msbuild = function (options) {
+  var mergedOptions = _.cloneDeep(mergeOptionsWithDefaults(options));
+  validateOptions(mergedOptions);
+
+  var stream = through.obj(function(file, enc, callback) {
+    var self = this;
+    if (!file || !file.path) {
+      self.push(file);
+      return callback();
+    }
+
+    return msbuildRunner.startMsBuildTask(mergedOptions, file, function(err) {
+      if (err) return callback(err);
+      self.push(file);
+      if (mergedOptions.emitEndEvent) self.emit("end");
+      return callback();
+    });
+  });
+
+  return stream;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-msbuild.msbuild_command_builder" id="apidoc.module.gulp-msbuild.msbuild_command_builder">module gulp-msbuild.msbuild_command_builder</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-msbuild.msbuild_command_builder.buildArguments" id="apidoc.element.gulp-msbuild.msbuild_command_builder.buildArguments">
+        function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_command_builder.</span>buildArguments
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">buildArguments = function (options) {
+  var args = [];
+  args.push('/target:' + options.targets.join(';'));
+  args.push('/verbosity:' + options.verbosity);
+  if (options.toolsVersion) {
+    var version = parseFloat(options.toolsVersion).toFixed(1);
+    if (isNaN(version)) {
+      version = '4.0';
+    }
+    args.push('/toolsversion:' + version);
+  }
+
+  if (options.nologo) {
+    args.push('/nologo');
+  }
+
+  if (options.fileLoggerParameters) {
+    args.push('/flp:' + options.fileLoggerParameters);
+  }
+
+  if (options.consoleLoggerParameters) {
+    args.push('/clp:' + options.consoleLoggerParameters);
+  }
+
+  if (options.loggerParameters) {
+    args.push('/logger:' + options.loggerParameters);
+  }
+
+  // xbuild does not support the `maxcpucount` argument and throws if provided
+  if (options.maxcpucount &gt;= 0 &amp;&amp; options.msbuildPath !== 'xbuild') {
+    if (options.maxcpucount === 0) {
+      args.push('/maxcpucount');
+    } else {
+      args.push('/maxcpucount:' + options.maxcpucount);
+    }
+  }
+
+  if (options.nodeReuse === false) {
+    args.push('/nodeReuse:False')
+  }
+
+  if (options.configuration) {
+    options.properties = _.extend({
+      'Configuration': options.configuration
+    }, options.properties);
+  }
+
+  if (options.solutionPlatform) {
+    options.properties = _.extend({
+      'Platform': options.solutionPlatform
+    }, options.properties);
+  }
+
+  for (var property in options.properties) {
+    args.push('/property:' + property + '=' + options.properties[property]);
+  }
+
+  if (options.customArgs) {
+    args = args.concat(options.customArgs);
+  }
+
+  return args;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  var newOptions = _.cloneDeep(options);
+
+  Object.keys(newOptions.properties).forEach(function(prop) {
+    var context = { file: file };
+    newOptions.properties[prop] = gutil.template(newOptions.properties[prop], context);
+  });
+
+  var args = this.<span class="apidocCodeKeywordSpan">buildArguments</span>(newOptions);
+
+  return {
+    executable: path.normalize(options.msbuildPath),
+    args: [file.path].concat(args)
+  };
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-msbuild.msbuild_command_builder.construct" id="apidoc.element.gulp-msbuild.msbuild_command_builder.construct">
+        function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_command_builder.</span>construct
+        <span class="apidocSignatureSpan">(file, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">construct = function (file, options) {
+  if (!options || Object.keys(options).length &lt;= 0) {
+    throw new PluginError(constants.PLUGIN_NAME, 'No options specified!');
+  }
+
+  if (!options.msbuildPath) {
+    var msbuildFinder = require('./msbuild-finder');
+    options.msbuildPath = msbuildFinder.find(options);
+  }
+
+  var newOptions = _.cloneDeep(options);
+
+  Object.keys(newOptions.properties).forEach(function(prop) {
+    var context = { file: file };
+    newOptions.properties[prop] = gutil.template(newOptions.properties[prop], context);
+  });
+
+  var args = this.buildArguments(newOptions);
+
+  return {
+    executable: path.normalize(options.msbuildPath),
+    args: [file.path].concat(args)
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+'use strict';
+
+var commandBuilder = require('./msbuild-command-builder');
+var gutil = require('gulp-util');
+var childProcess = require('child_process');
+
+module.exports.startMsBuildTask = function (options, file, callback) {
+var command = commandBuilder.<span class="apidocCodeKeywordSpan">construct</span>(file, options);
+
+if (options.logCommand) {
+  gutil.log(gutil.colors.cyan('Using MSBuild command:'), command.executable, command.args.join(' '));
+}
+
+var io = ['ignore'];
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-msbuild.msbuild_finder" id="apidoc.module.gulp-msbuild.msbuild_finder">module gulp-msbuild.msbuild_finder</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-msbuild.msbuild_finder.find" id="apidoc.element.gulp-msbuild.msbuild_finder.find">
+        function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_finder.</span>find
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">find = function (options) {
+  if (!options.platform.match(/^win/)) {
+    return 'xbuild';
+  }
+
+  var msbuildRoot;
+  var is64Bit = options.architecture === 'x64';
+
+  // On 64-bit systems msbuild is always under the x86 directory. If this
+  // doesn't exist we are on a 32-bit system. See also:
+  // https://blogs.msdn.microsoft.com/visualstudio/2013/07/24/msbuild-is-now-part-of-visual-studio/
+  var pathRoot;
+  if (is64Bit) {
+    pathRoot = process.env['ProgramFiles(x86)'] || 'C:/Program Files (x86)';
+  } else {
+    pathRoot = process.env['ProgramFiles'] || 'C:/Program Files';
+  }
+
+  if (options.toolsVersion === 'auto') {
+    var result = autoDetectVersion(pathRoot);
+    msbuildRoot = result[0]
+    options.toolsVersion = result[1];
+  } else {
+    if (options.toolsVersion === 15.0) {
+      var msbuildDir = detectMsBuild15Dir(pathRoot);
+      if (msbuildDir) {
+        msbuildRoot = msbuildDir;
+      } else {
+        msbuildRoot = pathRoot;
+      }
+    } else {
+      msbuildRoot = pathRoot;
+    }
+  }
+
+  var version = constants.MSBUILD_VERSIONS[options.toolsVersion];
+  if (!version) {
+    throw new PluginError(constants.PLUGIN_NAME, 'No MSBuild Version was supplied!');
+  }
+
+  if (version === '12.0' || version === '14.0' || version === '15.0') {
+    var x64_dir = is64Bit ? 'amd64' : '';
+    return path.join(msbuildRoot, 'MSBuild', version, 'Bin', x64_dir, 'MSBuild.exe');
+  } else {
+    var framework = is64Bit ? 'Framework64' : 'Framework';
+    return path.join(options.windir, 'Microsoft.Net', framework, version, 'MSBuild.exe');
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+module.exports.construct = function(file, options) {
+if (!options || Object.keys(options).length &lt;= 0) {
+  throw new PluginError(constants.PLUGIN_NAME, 'No options specified!');
+}
+
+if (!options.msbuildPath) {
+  var msbuildFinder = require('./msbuild-finder');
+  options.msbuildPath = msbuildFinder.<span class="apidocCodeKeywordSpan">find</span>(options);
+}
+
+var newOptions = _.cloneDeep(options);
+
+Object.keys(newOptions.properties).forEach(function(prop) {
+  var context = { file: file };
+  newOptions.properties[prop] = gutil.template(newOptions.properties[prop], context);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-msbuild.msbuild_runner" id="apidoc.module.gulp-msbuild.msbuild_runner">module gulp-msbuild.msbuild_runner</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-msbuild.msbuild_runner.startMsBuildTask" id="apidoc.element.gulp-msbuild.msbuild_runner.startMsBuildTask">
+        function <span class="apidocSignatureSpan">gulp-msbuild.msbuild_runner.</span>startMsBuildTask
+        <span class="apidocSignatureSpan">(options, file, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">startMsBuildTask = function (options, file, callback) {
+  var command = commandBuilder.construct(file, options);
+
+  if (options.logCommand) {
+    gutil.log(gutil.colors.cyan('Using MSBuild command:'), command.executable, command.args.join(' '));
+  }
+
+  var io = ['ignore'];
+
+  io.push(options.stdout ? process.stdout : 'ignore');
+  io.push(options.stderr ? process.stderr : 'ignore');
+
+  var spawnOptions = { stdio: io };
+
+  var cp = childProcess.spawn(command.executable, command.args, spawnOptions);
+
+  cp.on('error', function (err) {
+    if (err) {
+      gutil.log(err);
+      gutil.log(gutil.colors.red('MSBuild failed!'));
+
+      if (options.errorOnFail) {
+        return callback(err);
+      }
+    }
+
+    return callback();
+  });
+
+  cp.on('close', function (code, signal) {
+    if (code === 0) {
+      gutil.log(gutil.colors.cyan('MSBuild complete!'));
+    } else {
+      var msg;
+
+      if (code != null) {
+        // Exited normally, but failed.
+        msg = 'MSBuild failed with code ' + code + '!';
+      } else {
+        // Killed by parent process.
+        msg = 'MSBuild killed with signal ' + signal + '!';
+      }
+
+      gutil.log(gutil.colors.red(msg));
+
+      if (options.errorOnFail) {
+        return callback(new Error(msg));
+      }
+    }
+
+    return callback();
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var stream = through.obj(function(file, enc, callback) {
+  var self = this;
+  if (!file || !file.path) {
+    self.push(file);
+    return callback();
+  }
+
+  return msbuildRunner.<span class="apidocCodeKeywordSpan">startMsBuildTask</span>(mergedOptions, file, function(err) {
+    if (err) return callback(err);
+    self.push(file);
+    if (mergedOptions.emitEndEvent) self.emit("end");
+    return callback();
+  });
+});
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
